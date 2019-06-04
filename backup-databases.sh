@@ -72,6 +72,11 @@ do
         oc -n $PROJECT exec $POD -- /bin/bash -c 'mongodump -u $MONGODB_USER -p $MONGODB_PASSWORD -d $MONGODB_DATABASE --gzip --archive' > $DIR/$PROJECT-$DBNAME-$DATE.mongodump.gz
         putBackup $DIR/$PROJECT-$DBNAME-$DATE.mongodump.gz mongodb/$PROJECT/$DBNAME/$DBNAME-$DATE.mongodump.gz
         ;;
+      gitlab)
+        echo "Backup gitlab $PROJECT..."
+        oc -n $PROJECT exec $POD -- /bin/bash -c 'gitlab-rake gitlab:backup:create'
+        ;;
+
       *)
         echo "ERROR: Unknown backup-method $i"
         ;;
