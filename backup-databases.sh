@@ -74,7 +74,7 @@ do
         ;;
       gitlab)
         echo "Backup gitlab $PROJECT..."
-        oc -n $PROJECT exec $POD -- /bin/bash -c 'gitlab-rake gitlab:backup:create'
+        oc -n $PROJECT exec $POD -- /bin/bash -c 'gitlab-rake gitlab:backup:create RAILS_ENV=production CRON=1'
         ;;
 
       *)
